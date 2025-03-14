@@ -1,6 +1,8 @@
 ```markdown
 # Stock Market Sentiment Analysis
 
+![Stock Sentiment Analysis Workflow](docs/images/1.png)
+
 This project is designed to predict stock market movements based on the sentiment of news articles related to specific stocks. It leverages machine learning models to analyze historical stock data, extract sentiment from news articles, and predict whether a stock will go up or down based on that sentiment.
 
 ## Features

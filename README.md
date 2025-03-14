@@ -1,4 +1,4 @@
-![Stock Sentiment Analysis Workflow](docs/images/1.png)
+
 ```markdown
 # Stock Market Sentiment Analysis
 This project is designed to predict stock market movements based on the sentiment of news articles related to specific stocks. It leverages machine learning models to analyze historical stock data, extract sentiment from news articles, and predict whether a stock will go up or down based on that sentiment.
@@ -180,5 +180,12 @@ The model with the best performance (based on R² score and MSE) is selected for
 2. **Running the Application**: Describes how to run both the Flask web API and the background scheduler.
 3. **Making Predictions**: Details how users can make predictions based on news articles or date ranges.
 4. **Retraining the Model**: Provides instructions on how to manually train the machine learning models.
-5. **Licenses and Contributions**: Includes sections on licensing and how to contribute to the project.
+
+
+![Stock Sentiment App](docs/images/1.png)
+![Stock Sentiment App](docs/images/2.png)
+![Stock Sentiment App](docs/images/3.png)
+![Stock Sentiment App](docs/images/4.png)
+![Stock Sentiment App](docs/images/5.png)
+
 

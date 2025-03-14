@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Sentiment Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .input-container {
+            margin-bottom: 20px;
+        }
+        .input-container textarea, .input-container input, .input-container select {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        .input-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .input-container button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+        }
+        .articles-table, .stock-table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .articles-table th, .articles-table td, .stock-table th, .stock-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .articles-table th, .stock-table th {
+            background-color: #f4f4f4;
+        }
+        .articles-table tr:nth-child(even), .stock-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .articles-table tr:hover, .stock-table tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>News Sentiment Analysis</h1>
+
+        <!-- Form to predict sentiment for news text -->
+        <form action="/predict_news" method="POST">
+            <div class="input-container">
+                <textarea name="news" placeholder="Enter news text here..." required>{{ news }}</textarea>
+            </div>
+            <div class="input-container">
+                <button type="submit">Predict Sentiment</button>
+            </div>
+        </form>
+
+        <!-- Display prediction results for sentiment -->
+        <div class="result">
+            {% if sentiment %}
+                <p>{{ sentiment }}</p>
+            {% endif %}
+            {% if stock_movement %}
+                <p><strong>Stock Movement Prediction:</strong> {{ stock_movement }}</p>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        <!-- Form to predict sentiment of news articles within a date range -->
+        <form action="/predict_date_range" method="POST">
+            <div class="input-container">
+                <input type="date" name="from_date" required>
+                <input type="date" name="to_date" required>
+            </div>
+            <div class="input-container">
+                <input type="text" name="stock_ticker" placeholder="Enter stock ticker" required>
+            </div>
+            <div class="input-container">
+                <label for="sort_order">Sort Order:</label>
+                <select name="sort_order" id="sort_order">
+                    <option value="asc">Positive Sentiment First</option>
+                    <option value="desc">Negative Sentiment First</option>
+                </select>
+            </div>
+            <div class="input-container">
+                <button type="submit">Get Stock News</button>
+            </div>
+        </form>
+
+        <!-- Display articles table -->
+        {% if articles %}
+        <table class="articles-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Importance Score</th>
+                    <th>Combined Score</th>
+                    <th>Sentiment</th>
+                    <th>Sentiment Compound</th>
+                    <th>Stock Movement Prediction</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.importance_score }}</td>
+                        <td>{{ article.combined_score }}</td>
+                        <td>{{ article.model_prediction }}</td>
+                        <td>{{ article.sentiment_compound }}</td>
+                        <td>{{ article.stock_movement }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        <!-- Display stock data table -->
+        {% if stock_data %}
+        <table class="stock-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Open</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Close</th>
+                    <th>Volume</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in stock_data %}
+                    <tr>
+                        <td>{{ row.date }}</td>
+                        <td>{{ row.open }}</td>
+                        <td>{{ row.high }}</td>
+                        <td>{{ row.low }}</td>
+                        <td>{{ row.close }}</td>
+                        <td>{{ row.volume }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</body>
+</html>

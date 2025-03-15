@@ -2,8 +2,10 @@ import subprocess
 import sys
 import os
 from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.events import EVENT_JOB_EXECUTED, EVENT_JOB_ERROR
 import logging
+from apscheduler.triggers.cron import CronTrigger
+import pytz
+from datetime import datetime
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -17,6 +19,10 @@ def run_pipeline():
         # Running the pipeline script via subprocess
         subprocess.run([sys.executable, pipeline_script], check=True)
         logging.info("Pipeline has finished running.")
+        
+        # Run the Flask app after the pipeline finishes
+        run_flask_app()
+        
     except Exception as e:
         logging.error(f"Error running pipeline: {e}")
 
@@ -33,15 +39,18 @@ def run_flask_app():
         logging.error(f"Error running Flask app: {e}")
 
 def schedule_pipeline_task(scheduler):
-    """Schedule the pipeline task."""
-    # Add job to scheduler to run the `run_pipeline()` function at a specific time
+    """Schedule the pipeline task to run at 6:11 PM KSA time."""
+    
+    # Get Saudi Arabia timezone
+    ksa_timezone = pytz.timezone('Asia/Riyadh')
+    
+    # Set the trigger to run at 6:05 PM KSA time (once)
+    trigger = CronTrigger(hour=18, minute=12, second=0, timezone=ksa_timezone)
+    
+    # Add the job to the scheduler with the cron trigger
+    scheduler.add_job(run_pipeline, trigger)
 
-    # Example of scheduling for daily execution at 2:00 AM:
-    scheduler.add_job(run_pipeline, 'cron', day_of_week='mon', hour=2, minute=0)
-
-    # scheduler.add_job(run_pipeline, 'cron', day_of_week='mon', hour=8, minute=0)
-
-    logging.info("Pipeline job has been scheduled.")
+    logging.info("Pipeline job has been scheduled to run at 6:05 PM KSA time.")
 
 def start_scheduler():
     """Start the scheduler."""
@@ -65,4 +74,4 @@ if __name__ == "__main__":
     # Run the scheduler in the background to run the pipeline at a specific time
     start_scheduler()
 
-    run_flask_app()  
+    # The Flask app will be triggered after the pipeline finishes, so no need to call it directly here.

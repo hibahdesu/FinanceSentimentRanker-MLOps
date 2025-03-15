@@ -36,8 +36,8 @@ def train_and_evaluate_models(X_train_tf, X_test_tf, y_train_scaled, y_test_scal
     """
     models = {
         "Linear Regression": train_logistic_model(X_train_tf, y_train_scaled),
-        "Support Vector Regressor": train_svc_model(X_train_tf, y_train_scaled),
-        "Random Forest Regressor": train_rf_model(X_train_tf, y_train_scaled)
+        # "Support Vector Regressor": train_svc_model(X_train_tf, y_train_scaled),
+        # "Random Forest Regressor": train_rf_model(X_train_tf, y_train_scaled)
     }
 
     model_scores = {}

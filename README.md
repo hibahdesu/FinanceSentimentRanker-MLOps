@@ -1,5 +1,5 @@
 # Stock Market Sentiment Analysis
-![Stock Market Sentiment Analysis](docs/images/About.jpeg)
+![Stock Market Sentiment Analysis](assets/About.jpeg)
 <br />
 This project is designed to predict stock market movements based on the sentiment of news articles related to specific stocks. It leverages machine learning models to analyze historical stock data, extract sentiment from news articles, and predict whether a stock will go up or down based on that sentiment.
 ```markdown
@@ -182,10 +182,10 @@ The model with the best performance (based on R² score and MSE) is selected for
 4. **Retraining the Model**: Provides instructions on how to manually train the machine learning models.
 
 
-![Stock Sentiment App](docs/images/1.png)
-![Stock Sentiment App](docs/images/2.png)
-![Stock Sentiment App](docs/images/3.png)
-![Stock Sentiment App](docs/images/4.png)
-![Stock Sentiment App](docs/images/5.png)
+![Stock Sentiment App](assets/1.png)
+![Stock Sentiment App](assets/2.png)
+![Stock Sentiment App](assets/3.png)
+![Stock Sentiment App](assets/4.png)
+![Stock Sentiment App](assets/5.png)
 
 

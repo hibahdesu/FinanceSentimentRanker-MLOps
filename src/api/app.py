@@ -24,9 +24,9 @@ from src.utils.text_cleaning import cleanText
 app = Flask(__name__)
 
 # Load the saved models and vectorizer
-model = joblib.load(os.path.join(os.path.dirname(__file__), '..', '..', 'saved_models', 'best_model.pkl'))
-vectorizer = joblib.load(os.path.join(os.path.dirname(__file__), '..', '..', 'saved_models', 'vectorizer.pkl'))
-scaler = joblib.load(os.path.join(os.path.dirname(__file__), '..', '..', 'saved_models', 'scaler.pkl'))
+model = joblib.load(os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'best_model.pkl'))
+vectorizer = joblib.load(os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'vectorizer.pkl'))
+scaler = joblib.load(os.path.join(os.path.dirname(__file__), '..', '..', 'models', 'scaler.pkl'))
 
 # Keywords to indicate investment importance
 important_keywords = [
